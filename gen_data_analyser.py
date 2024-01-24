@@ -9,7 +9,7 @@ class MLDataAnalysis:
         self.uri = uri
 
         if 'portuguese' in version:
-            self.map = {'sim':1,'não':0}
+            self.map = {'sim':1,'nao':0}
         elif 'english' in version:
             self.map =  {'yes':1, 'no':0}
 
@@ -53,12 +53,18 @@ class MLDataAnalysis:
 
     def processing_data(self):
         data = self._data_set()
-        # column_list = data.columns
+        column_list = data.columns
 
-        # for index, iten in enumerate(column_list):
-        #     column = data[iten]
-        #     if 'sim' in _np.array(column):
-        #         data[iten] = data[iten].map(map)
+        for index, iten in enumerate(column_list):
+            column = _np.array(data[iten]).tolist()
+            if isinstance(column[0], str):
+                data[iten] = ' '.join(column).lower().split()
+
+                dic = self.map
+                keys = list(dic.keys())
+                # esse trecho de codigo precisa abranger outras possibilidades
+                if keys[0] in _np.array(data[iten]):
+                    data[iten] = data[iten].map(dic)
 
         return data
 
