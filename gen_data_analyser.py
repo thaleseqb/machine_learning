@@ -7,12 +7,16 @@ class MLDataAnalysis:
 
     def __init__(self, uri):
         self.uri = uri
+        self.map = {'yes':1,'sim':1,'não':0,'no':0}
 
     # por enquanto essa classe é apenas um esqueleto do que eu quero que ela seja futuramente.
     # quero automatizar as manipulações que geralmente são feitas nas tabelas proveniente das
     # bases de dados que podem vir de uri's ou de servidores sql.
 
     # Essa função vai ler e armazenar os dados referentes a nossa base de dados que será analisada
+
+    # é interessante identificar quando uma base de dados possui 'sim/yes' e 'não/no'
+    # para isso seria interessante fazer uma estrutura de repetição para percorrer os dados e juntamente com o mapa 
     def reading_uri(self):
         if '.csv' in self.uri:
             data = pd.read_csv()
