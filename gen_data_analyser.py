@@ -49,27 +49,10 @@ class MLDataAnalysis:
             data = _pd.read_csv(self.uri)
             self.data = data
         
-        return data 
-
-    def processing_data(self):
-        data = self._data_set()
-        column_list = data.columns
-
-        for index, iten in enumerate(column_list):
-            column = _np.array(data[iten]).tolist()
-            if isinstance(column[0], str):
-                data[iten] = ' '.join(column).lower().split()
-
-                dic = self.map
-                keys = list(dic.keys())
-                # esse trecho de codigo precisa abranger outras possibilidades
-                if keys[0] in _np.array(data[iten]):
-                    data[iten] = data[iten].map(dic)
-
         return data
 
-    # método para retirar as letras que possuem til
-    def replace_tilda(strin, dic):
+    def _replace_tilda(self, strin, dic):
+        """This method replaces the '~' symbol for the original letter"""
 
         strin = strin.lower()
         alfanumeric_string = [ord(alpha_num) for alpha_num in strin]
@@ -85,3 +68,24 @@ class MLDataAnalysis:
         string = ''.join(transformed_chr)
 
         return string
+
+    def processing_data(self, tilda):
+        data = self._data_set()
+        column_list = data.columns
+
+        for index, iten in enumerate(column_list):
+            column = _np.array(data[iten]).tolist()
+            if isinstance(column[0], str):
+                if tilda:
+                    column = self._replace_tilda(' '.join(column), self.dic).split()
+                    data[iten] = column
+                else:
+                    data[iten] = ' '.join(column).lower().split()
+
+                dic = self.map
+                keys = list(dic.keys())
+                # esse trecho de codigo precisa abranger outras possibilidades
+                if keys[0] in _np.array(data[iten]):
+                    data[iten] = data[iten].map(dic)
+
+        return data
