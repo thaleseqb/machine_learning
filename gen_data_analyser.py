@@ -22,25 +22,18 @@ class MLDataAnalysis:
             }
         
         self.data = None
-        
-    # por enquanto essa classe é apenas um esqueleto do que eu quero que ela seja futuramente.
-    # quero automatizar as manipulações que geralmente são feitas nas tabelas proveniente das
-    # bases de dados que podem vir de uri's ou de servidores sql.
 
-    # Essa função vai ler e armazenar os dados referentes a nossa base de dados que será analisada
-
-    # é interessante identificar quando uma base de dados possui 'sim/yes' e 'não/no'
-    # para isso seria interessante fazer uma estrutura de repetição para percorrer os dados e juntamente com o mapa 
+    # the sql database manipulation was not implemented yet
     
-    # @property
-    # def uri(self):
-    #     """."""
-    #     return self.uri
+    @property
+    def set_uri(self):
+        """Defines uri"""
+        return self.uri
     
-    # @uri.setter
-    # def uri(self, new_uri):
-    #     """Defines a new uri"""
-    #     self.uri = new_uri
+    @set_uri.setter
+    def set_uri(self, new_uri):
+        """The user could change the uri if it is desired"""
+        self.uri = new_uri
 
     def _data_set(self):
         """Defines the data to analyse the dataset"""
@@ -52,7 +45,7 @@ class MLDataAnalysis:
         return data
 
     def _replace_tilda(self, strin, dic):
-        """This method replaces the '~' symbol for the original letter"""
+        """This method removes tilda symbol and others symbols above the letters"""
 
         strin = strin.lower()
         alfanumeric_string = [ord(alpha_num) for alpha_num in strin]
